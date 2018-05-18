@@ -1,16 +1,15 @@
 from __future__ import print_function
 from functools import reduce
-from numpy import sin, pi
+from numpy import sin, pi, cos
 import numpy as np
 import sys
 
 N = 1
 p1 = [-N, N]
 p2 = [N, -N]
-step = 1
-
-n1 = reduce((lambda x, y: step*abs(x - y) + 1), p1)
-n2 = reduce((lambda x, y: step*abs(x - y) + 1), p2)
+step = 0.25
+n1 = reduce((lambda x, y: int(abs(x - y)/step) + 1), p1)
+n2 = reduce((lambda x, y: int(abs(x - y)/step) + 1), p2)
 N = n1 * n2
 nums = np.zeros((n1, n2))
 i = 0
@@ -18,17 +17,19 @@ num = 0
 f = open('workfile', 'w')
 sys.stdout = f
 print(N)
-for y in range(p1[1], p2[1] - 1, -step):
-    for x in range(p1[0], p2[0] + 1, step):
+for y in np.arange(p1[1], p2[1] - step, -step):
+    for x in np.arange(p1[0], p2[0] + step, step):
         print(x, y)
         nums[i / n1, i % n1] = i
         i += 1
 
-for y in range(p1[1], p2[1]-1, -1):
+# func = lambda x, y: -1 if x < 0 else (0 if x == 0 else 1)
+func = lambda x, y: sin(pi*x)*sin(pi*y)
+
+for y in np.arange(p1[1], p2[1]-step, -step):
     l = []
-    for x in range(p1[0], p2[0]+1):
-        l.append(sin(pi*x)*sin(pi*y))
-        #l.append(-1 if x < 0 else (0 if x == 0 else 1))
+    for x in np.arange(p1[0], p2[0]+step, step):
+        l.append(func(x, y))
     print(*l, sep=' ')
     # print(l)
 

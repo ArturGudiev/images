@@ -5,7 +5,7 @@ from scipy import integrate
 from numpy import square as sq
 from numpy import linalg as LA
 from numpy import linalg
-from math import sqrt
+from math import sqrt, sin, cos, pi
 
 import pprint
 def triangleValue(f1, f2, f3):
@@ -54,7 +54,7 @@ def readData(filename):
         [num] = [int(x) for x in next(f).split()]
         numbers = []
         for line in f:
-            numbers.extend([int(x) for x in line.split()])
+            numbers.extend([float(x) for x in line.split()])
         # array = [[int(x) for x in line.split()] for line in f]
         # print numbers
         # exit(0)
@@ -64,12 +64,12 @@ def readData(filename):
         F = []
         for i in range(0, num):
             F.append(numbers.pop(0))
-        triangles_num = numbers.pop(0)
+        triangles_num = int(numbers.pop(0))
         triangles = []
         for i in range(0, triangles_num):
-            a = numbers.pop(0)
-            b = numbers.pop(0)
-            c = numbers.pop(0)
+            a = int(numbers.pop(0))
+            b = int(numbers.pop(0))
+            c = int(numbers.pop(0))
             triangles.append((a, b, c))
             # print edges
     return (edges, F, triangles)
@@ -155,10 +155,15 @@ print u.reshape(d, d)
 
 
 ans = []
+# func = lambda x, y : x * (abs(x)-2) / 2
+func = lambda x, y : 1/( np.pi**2/4*(2) ) * cos( pi*(x+1)/2 ) * cos( pi*(y+1)/2 )
+
+const = -0.5
 for i in range(0,len(edges)):
     x = edges[i][0]
-    # x = F[i]
-    ans.append(x * (abs(x)-2) / 2 )
+    y = edges[i][1]
+    ans.append(func(x, y) + const)
 
 ans = np.asarray(ans)
+print
 print ans.reshape(d, d)
