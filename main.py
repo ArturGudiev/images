@@ -128,6 +128,7 @@ for i in range(0, len(edges)):
     A[i, i] *= 2
 
 w = getEigens(A)
+excluded = 0
 for i in range(0, len(w)):
     if abs(w[i]) < 0.0000001:
         print 'Exclude ', i

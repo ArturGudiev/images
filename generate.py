@@ -4,10 +4,10 @@ from numpy import sin, pi, cos
 import numpy as np
 import sys
 
-N = 1
+N = 2
 p1 = [-N, N]
 p2 = [N, -N]
-step = 0.25
+step = 1
 n1 = reduce((lambda x, y: int(abs(x - y)/step) + 1), p1)
 n2 = reduce((lambda x, y: int(abs(x - y)/step) + 1), p2)
 N = n1 * n2
@@ -23,8 +23,8 @@ for y in np.arange(p1[1], p2[1] - step, -step):
         nums[i / n1, i % n1] = i
         i += 1
 
-# func = lambda x, y: -1 if x < 0 else (0 if x == 0 else 1)
-func = lambda x, y: sin(pi*x)*sin(pi*y)
+func = lambda x, y: -1 if x < 0 else (0 if x == 0 else 1)
+# func = lambda x, y: sin(pi*x)*sin(pi*y)
 
 for y in np.arange(p1[1], p2[1]-step, -step):
     l = []
